@@ -12,16 +12,29 @@ it("should return 201 when inserting a fruit", async () => {
     
     const result = await server.post("/fruits").send(body);
     const status = result.status;
-    expect(status).toEqual(201);
+    expect(status).toBe(201);
 
 });
 
 it("should return 409 when inserting a fruit that is already registered", async () => {
+    const body = {
+        name: "banana",
+        price: "6"       
+   };
     
+    const result = await server.post("/fruits").send(body);
+    const status = result.status;
+    expect(status).toBe(409);
 });
 
 it("should return 422 when inserting a fruit with data missing", async () => {
-    
+    const bodyWithName = {
+        name: "Maçã"
+    };
+    const result = await server.post("/fruits").send(bodyWithName);
+    const status = result.status;
+    expect(status).toBe(422);
+
 });
 
 });
